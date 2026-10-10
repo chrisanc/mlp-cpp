@@ -1,7 +1,20 @@
 #pragma once
 #include <vector>
+#include <random>
 
 namespace math {
+    class random_generator {
+        // Initialize the random devices
+        std::random_device dev;
+        std::mt19937 rng{dev()};
+        std::uniform_real_distribution<double> dist{-1.0, 1.0};
+
+        public:
+            double generate() {
+                return dist(rng);
+            }
+    };
+
     typedef struct shape {
         size_t i, j;
 
@@ -40,7 +53,7 @@ namespace math {
     /**
      * Fills up the given matrix with random numbers
      */
-    void random_matrix(math::matrix<double>& m);
+    void random_matrix(math::matrix<double>& m, math::random_generator& generator);
 
     /**
      * Performs matrix multiplication

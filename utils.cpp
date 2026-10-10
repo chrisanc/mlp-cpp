@@ -1,21 +1,15 @@
 #include <iostream>
 #include <exception>
-#include <random>
 #include "utils.hpp"
 
 /*
  Mathematical (math) namespace
  */
-void math::random_matrix(math::matrix<double>& m) {
-    // Initialize the random devices
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_real_distribution<double> dist(-1.0, 1.0);
-
+void math::random_matrix(math::matrix<double>& m, math::random_generator& generator) {
     // Fill up the matrix
     for (int i = 0; i < m.shape.i; i++) {
         for (int j = 0; j < m.shape.j; j++) {
-            m.values[i][j] = dist(rng);
+            m.values[i][j] = generator.generate();
         }
     }
 }
@@ -39,7 +33,8 @@ math::matrix<double> math::matmul(const math::matrix<double>& m1, const math::ma
 
 math::matrix<double> nn::init_weights(const math::shape shape) {
     math::matrix<double> matrix(shape.i, shape.j);
+    math::random_generator gen;
 
-    math::random_matrix(matrix);
+    math::random_matrix(matrix, gen);
     return matrix;
 }
