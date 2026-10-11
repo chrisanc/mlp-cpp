@@ -17,6 +17,12 @@ int main() {
     math::matrix<double> v = math::transpose(in_weights);
     std::cout << "\n";
     print_matrix(v);*/
+    math::matrix<double> o = math::matmul(in_weights, out_weights);
+    print_matrix(in_weights);
+    std::cout << "\n";
+    print_matrix(out_weights);
+    std::cout << "\n";
+    print_matrix(o);
     return 0;
 }
 
