@@ -1,5 +1,5 @@
 #include <iostream>
-#include "utils.hpp"
+#include "nn.hpp"
 #define CASES 100
 
 template <typename T>

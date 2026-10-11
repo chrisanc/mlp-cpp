@@ -1,7 +1,5 @@
 #include <iostream>
-#include <exception>
-#include <queue>
-#include "utils.hpp"
+#include "math.hpp"
 
 /*
  Mathematical (math) namespace
@@ -33,16 +31,4 @@ math::matrix<double> math::matmul(const math::matrix<double>& m1, const math::ma
     }
 
     return m;
-}
-
-/*
- Neural networks (nn) namespace
- */
-
-math::matrix<double> nn::init_weights(const math::shape shape) {
-    math::matrix<double> matrix(shape.i, shape.j);
-    math::random_generator gen;
-
-    math::random_matrix(matrix, gen);
-    return matrix;
 }

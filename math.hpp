@@ -1,5 +1,4 @@
 #pragma once
-#include <vector>
 #include <random>
 
 namespace math {
@@ -75,11 +74,4 @@ namespace math {
 
         return matrix;
     }
-};
-
-namespace nn {
-    /**
-     * Takes a shape and returns a matrix filled up with random numbers
-     */
-    math::matrix<double> init_weights(const math::shape shape);
 };
