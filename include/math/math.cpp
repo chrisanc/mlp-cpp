@@ -1,5 +1,5 @@
 #include <iostream>
-#include "math.hpp"
+#include <math/math.hpp>
 
 /*
  Mathematical (math) namespace

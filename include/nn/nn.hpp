@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "math.hpp"
+#include <math/math.hpp>
 
 namespace nn {
     /**

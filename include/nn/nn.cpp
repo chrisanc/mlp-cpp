@@ -1,5 +1,5 @@
 #include <iostream>
-#include "nn.hpp"
+#include <nn/nn.hpp>
 
 /*
  Neural networks (nn) namespace
