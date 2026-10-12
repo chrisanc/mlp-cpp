@@ -84,7 +84,7 @@ namespace math {
     }
 
     /**
-     * Performs the sigmoid calculation on the given matrix
+     * Performs a sigmoid calculation on a given value
      */
     double sigmoid(const double x);
 };
