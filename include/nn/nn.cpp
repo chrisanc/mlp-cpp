@@ -52,3 +52,15 @@ math::matrix<double> nn::sigmoid(const math::matrix<double>& x) {
 
     return m;
 }
+
+
+std::vector<double> nn::error(const std::vector<double>& y, const std::vector<double>& y_hat) {
+    if (y.size() != y_hat.size()) throw std::invalid_argument("Invalid argument shapes...");
+    std::vector<double> err(y.size());
+
+    for (int i = 0; i < y.size(); i++) {
+        err[i] = y[i] - y_hat[i];
+    }
+
+    return err;
+}

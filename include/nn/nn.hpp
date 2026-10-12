@@ -22,4 +22,9 @@ namespace nn {
      * Performs the sigmoid calculation on the given matrix
      */
     math::matrix<double> sigmoid(const math::matrix<double>& x);
+
+    /**
+     * Calculates the error of the activated input
+     */
+    std::vector<double> error(const std::vector<double>& y, const std::vector<double>& y_hat);
 };
