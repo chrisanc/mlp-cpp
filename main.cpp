@@ -21,7 +21,8 @@ int main() {
     std::vector<double> b2 = nn::init_bias(out);
 
     math::matrix<double> z1 = nn::forward_pass(x, in_weights, b1);
-    std::cout << z1.shape.i << " " << z1.shape.j << "\n";
+    math::matrix<double> a1 = nn::sigmoid(z1);
+    print_matrix(a1);
     return 0;
 }
 

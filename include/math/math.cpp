@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include <math/math.hpp>
 
 /*
@@ -31,4 +32,9 @@ math::matrix<double> math::matmul(const math::matrix<double>& m1, const math::ma
     }
 
     return m;
+}
+
+
+double math::sigmoid(const double x) {
+    return 1 / (1 + std::pow(std::exp(1), -x));
 }

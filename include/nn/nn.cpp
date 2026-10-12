@@ -39,3 +39,16 @@ math::matrix<double> nn::forward_pass(const math::matrix<double>& x, const math:
 
     return m;
 }
+
+
+math::matrix<double> nn::sigmoid(const math::matrix<double>& x) {
+    math::matrix<double> m(x.shape.i, x.shape.j);
+
+    for (int i = 0; i < x.shape.i; i++) {
+        for (int j = 0; j < x.shape.j; j++) {
+            m[i][j] = math::sigmoid(x[i][j]);
+        }
+    }
+
+    return m;
+}
