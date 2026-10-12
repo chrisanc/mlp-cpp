@@ -8,6 +8,8 @@ namespace nn {
      */
     math::matrix<double> init_weights(const math::shape shape);
 
+    std::vector<double> init_bias(const size_t n);
+
     /**
      * Based on the given data, performs the forward pass on the neural network
      */

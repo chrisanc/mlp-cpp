@@ -7,11 +7,19 @@ namespace math {
         std::random_device dev;
         std::mt19937 rng{dev()};
         std::uniform_real_distribution<double> dist{-1.0, 1.0};
-
+        private:
+            random_generator() = default;
         public:
             double generate() {
                 return dist(rng);
             }
+
+            static math::random_generator& get() {
+                static math::random_generator gen;
+                return gen;
+            }
+
+            math::random_generator& operator=(const math::random_generator&) = delete;
     };
 
     typedef struct shape {

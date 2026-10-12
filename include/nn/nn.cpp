@@ -7,10 +7,20 @@
 
 math::matrix<double> nn::init_weights(const math::shape shape) {
     math::matrix<double> matrix(shape.i, shape.j);
-    math::random_generator gen;
+    math::random_generator& gen = math::random_generator::get();
 
     math::random_matrix(matrix, gen);
     return matrix;
+}
+
+std::vector<double> nn::init_bias(const size_t n) {
+    std::vector<double> vec(n);
+    math::random_generator& gen = math::random_generator::get();
+
+    for (int i = 0; i < n; i++) {
+        vec[i] = gen.generate();
+    }
+    return vec;
 }
 
 

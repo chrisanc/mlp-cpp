@@ -1,3 +1,4 @@
+#include <vector>
 #include <iostream>
 #include <nn/nn.hpp>
 #define CASES 100
@@ -10,14 +11,17 @@ int main() {
     std::cout << "Ingresa los valores de la capa de entrada, oculta y salida: ";
     std::cin >> in >> hidden >> out;
 
+    // Generate fake input data
+    math::matrix<double> x = nn::init_weights({CASES, 3});
+    // Initialize the weights
     math::matrix<double> in_weights = nn::init_weights({in, hidden});
     math::matrix<double> out_weights = nn::init_weights({hidden, out});
+    // Initialize the biases
+    std::vector<double> b1 = nn::init_bias(hidden);
+    std::vector<double> b2 = nn::init_bias(out);
 
-    /*print_matrix(in_weights);
-    math::matrix<double> v = math::transpose(in_weights);
-    std::cout << "\n";
-    print_matrix(v);*/
-    math::matrix<double> o = math::matmul(in_weights, out_weights);
+    math::matrix<double> z1 = nn::forward_pass(x, in_weights, b1);
+    std::cout << z1.shape.i << " " << z1.shape.j << "\n";
     return 0;
 }
 
