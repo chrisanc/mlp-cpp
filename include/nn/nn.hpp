@@ -24,6 +24,11 @@ namespace nn {
     math::matrix<double> sigmoid(const math::matrix<double>& x);
 
     /**
+     * Performs the softmax function to the given matrix (row-wise sum)
+     */
+    math::matrix<double> softmax(const math::matrix<double>& x);
+
+    /**
      * Calculates the error of the activated input
      */
     std::vector<double> error(const std::vector<double>& y, const std::vector<double>& y_hat);

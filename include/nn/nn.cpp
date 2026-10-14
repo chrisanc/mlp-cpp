@@ -54,6 +54,25 @@ math::matrix<double> nn::sigmoid(const math::matrix<double>& x) {
 }
 
 
+math::matrix<double> nn::softmax(const math::matrix<double>& x) {
+    math::matrix<double> r(x.shape.i, x.shape.j);
+
+    // Fill up the sums vector
+    for (int i = 0; i < x.shape.i; i++) {
+        double sum = 0.0;
+        for (int j = 0; j < x.shape.j; j++) {
+            sum += std::exp(x[i][j]);
+        }
+
+        for (int j = 0; j < x.shape.j; j++) {
+            r[i][j] = std::exp(x[i][j]) / sum;
+        }
+    }
+
+    return r;
+}
+
+
 std::vector<double> nn::error(const std::vector<double>& y, const std::vector<double>& y_hat) {
     if (y.size() != y_hat.size()) throw std::invalid_argument("Invalid argument shapes...");
     std::vector<double> err(y.size());

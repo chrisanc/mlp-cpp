@@ -48,6 +48,11 @@ namespace math {
             shape = {r, c};
         }
 
+        matrix(std::vector<std::vector<T>> rows, size_t r, size_t c) {
+            values = rows;
+            shape = {r, c};
+        }
+
         std::vector<T>& operator[](int i) {
             return values[i];
         }
