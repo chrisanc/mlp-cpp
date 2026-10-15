@@ -102,6 +102,18 @@ namespace math {
             }
             return r;
         }
+
+
+        const math::matrix<T> operator/(const double m) {
+            math::matrix<T> r(shape.i, shape.j);
+
+            for (int i = 0; i < shape.i; i++) {
+                for (int j = 0; j < shape.j; j++) {
+                    r[i][j] = values[i][j] / m;
+                }
+            }
+            return r;
+        }
     };
 
     /**

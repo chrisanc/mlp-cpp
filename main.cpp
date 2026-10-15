@@ -62,8 +62,8 @@ int main() {
         math::matrix<double> delta0 = math::matmul(delta1, w1) * (a1 * minus(1, a1));
 
         // Calculate the gradients
-        math::matrix<double> dW1 = math::matmul(math::transpose(delta1), a1);
-        math::matrix<double> dW0 = math::matmul(math::transpose(delta0), x);
+        math::matrix<double> dW1 = math::matmul(math::transpose(delta1), a1) / x.shape.i;
+        math::matrix<double> dW0 = math::matmul(math::transpose(delta0), x) / x.shape.i;
         
         // Update the values
         w0 = w0 - (dW0 * LR);
@@ -72,7 +72,7 @@ int main() {
         b1 = gradient(b1, delta1);
 
         if (i % (epochs / 10) == 0) {
-            std::cout << "Loss at " << i << ": " << nn::cross_entropy_loss(a2) << "\n";
+            std::cout << "Loss (" << i << "): " << nn::cross_entropy_loss(a2) << "\n";
         }
     }
 }
