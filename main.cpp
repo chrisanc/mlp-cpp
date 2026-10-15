@@ -7,7 +7,7 @@
 template <typename T>
 void print_matrix(const math::matrix<T>& m);
 
-math::matrix<double> minus(const int i, const math::matrix<double>& m);
+math::matrix<double> minus(const int value, const math::matrix<double>& m);
 std::vector<double> gradient(const std::vector<double>& b, const math::matrix<double>& delta);
 
 int main() {
@@ -89,12 +89,12 @@ void print_matrix(const math::matrix<T>& m) {
     std::cout << "(" << m.shape.i << ", " << m.shape.j << ")" << "\n";
 }
 
-math::matrix<double> minus(const int i, const math::matrix<double>& m) {
+math::matrix<double> minus(const int value, const math::matrix<double>& m) {
     math::matrix<double> r(m.shape.i, m.shape.j);
 
     for (int i = 0; i < m.shape.i; i++) {
         for (int j = 0; j < m.shape.j; j++) {
-            r[i][j] = i - m[i][j];
+            r[i][j] = value - m[i][j];
         }
     }
 
