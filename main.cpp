@@ -8,6 +8,7 @@ template <typename T>
 void print_matrix(const math::matrix<T>& m);
 
 math::matrix<double> minus(const int i, const math::matrix<double>& m);
+std::vector<double> gradient(const std::vector<double>& b, const math::matrix<double>& delta);
 
 int main() {
     // Define the inputs
@@ -47,25 +48,33 @@ int main() {
     std::vector<double> b0 = {0.3, -0.1, 0.2, -0.4, 0.1};
     std::vector<double> b1 = {1.2, 0.29, 0.12, 0.1};
 
-    // Calculate U1 and A1
-    math::matrix<double> u1 = nn::forward_pass(x, math::transpose(w0), b0);
-    math::matrix<double> a1 = nn::sigmoid(u1);
-    
-    // Calculate U2 and A2
-    math::matrix<double> u2 = nn::forward_pass(a1, math::transpose(w1), b1);
-    math::matrix<double> a2 = nn::softmax(u2);
+    for (int i = 0; i <= epochs; i++) {
+        // Calculate U1 and A1
+        math::matrix<double> u1 = nn::forward_pass(x, math::transpose(w0), b0);
+        math::matrix<double> a1 = nn::sigmoid(u1);
+        
+        // Calculate U2 and A2
+        math::matrix<double> u2 = nn::forward_pass(a1, math::transpose(w1), b1);
+        math::matrix<double> a2 = nn::softmax(u2);
 
-    math::matrix<double> hot = nn::one_hot_y(y);
-    math::matrix<double> delta2 = a2 - hot;
-    math::matrix<double> delta1 = math::matmul(delta2, w1) * (a1 * minus(1, a1));
+        math::matrix<double> hot = nn::one_hot_y(y);
+        math::matrix<double> delta1 = a2 - hot;
+        math::matrix<double> delta0 = math::matmul(delta1, w1) * (a1 * minus(1, a1));
 
-    //math::matmul(delta2, a2);
-    // Calculate the gradients
-    math::matrix<double> dW2 = math::matmul(math::transpose(delta2), a1);
-    math::matrix<double> dW1 = math::matmul(math::transpose(delta1), x);
+        // Calculate the gradients
+        math::matrix<double> dW1 = math::matmul(math::transpose(delta1), a1);
+        math::matrix<double> dW0 = math::matmul(math::transpose(delta0), x);
+        
+        // Update the values
+        w0 = w0 - (dW0 * LR);
+        w1 = w1 - (dW1 * LR);
+        b0 = gradient(b0, delta0);
+        b1 = gradient(b1, delta1);
 
-    print_matrix(dW1);
-    print_matrix(dW2);
+        if (i % (epochs / 10) == 0) {
+            std::cout << "Loss at " << i << ": " << nn::cross_entropy_loss(a2) << "\n";
+        }
+    }
 }
 
 template <typename T>
@@ -90,4 +99,21 @@ math::matrix<double> minus(const int i, const math::matrix<double>& m) {
     }
 
     return r;
+}
+
+
+std::vector<double> gradient(const std::vector<double>& b, const math::matrix<double>& delta) {
+    std::vector<double> vec(delta.shape.j);
+
+    for (int j = 0; j < delta.shape.j; j++) {
+        for (int i = 0; i < delta.shape.i; i++) {
+            vec[j] += delta[i][j] / delta.shape.i;
+        }
+    }
+
+    for (int i = 0; i < b.size(); i++) {
+        vec[i] = b[i] - (vec[i] * LR);
+    }
+
+    return vec;
 }
