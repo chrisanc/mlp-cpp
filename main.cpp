@@ -72,7 +72,7 @@ int main() {
         b1 = gradient(b1, delta1);
 
         if (i % (epochs / 10) == 0) {
-            std::cout << "Loss (" << i << "): " << nn::cross_entropy_loss(a2) << "\n";
+            std::cout << "Loss (" << i << "): " << nn::cross_entropy_loss(a2, hot) << "\n";
         }
     }
 }
