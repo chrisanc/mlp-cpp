@@ -44,4 +44,10 @@ namespace nn {
      * Takes a vector and returns the average loss using the cross-entropy loss formula
      */
     double cross_entropy_loss(const math::matrix<double> a);
+
+
+    /**
+     * Given the values, returns a one-hot matrix with its corresponding values
+     */
+    math::matrix<bool> one_hot_y(std::vector<double> y);
 };

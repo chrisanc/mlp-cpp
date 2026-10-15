@@ -107,3 +107,17 @@ double nn::cross_entropy_loss(const math::matrix<double> a) {
 
     return loss / a.shape.i;
 }
+
+
+math::matrix<bool> nn::one_hot_y(std::vector<double> y) {
+    int max_y = static_cast<int>(math::max(y) + 1);
+    math::matrix<bool> r(y.size(), max_y);
+
+    for (int i = 0; i < y.size(); i++) {
+        std::vector<bool> vec(max_y);
+        vec[y[i]] = true;
+        r[i] = vec;
+    }
+
+    return r;
+}

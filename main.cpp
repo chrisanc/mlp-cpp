@@ -53,7 +53,7 @@ int main() {
     math::matrix<double> u2 = nn::forward_pass(a1, math::transpose(w1), b1);
     math::matrix<double> a2 = nn::softmax(u2);
 
-    std::cout << nn::cross_entropy_loss(a2);
+    print_matrix(nn::one_hot_y(y));
 }
 
 template <typename T>
