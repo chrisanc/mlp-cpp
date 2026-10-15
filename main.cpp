@@ -9,6 +9,10 @@ void print_matrix(const math::matrix<T>& m);
 
 math::matrix<double> minus(const int value, const math::matrix<double>& m);
 std::vector<double> gradient(const std::vector<double>& b, const math::matrix<double>& delta);
+void verify(
+    const math::matrix<double>& x, const math::matrix<double>& w0, const std::vector<double> b0,
+    const math::matrix<double>& w1, const std::vector<double>& b1, const std::vector<double>& y
+);
 
 int main() {
     // Define the inputs
@@ -48,6 +52,7 @@ int main() {
     std::vector<double> b0 = {0.3, -0.1, 0.2, -0.4, 0.1};
     std::vector<double> b1 = {1.2, 0.29, 0.12, 0.1};
 
+    std::cout << " === PROCESO DE ENTRENAMIENTO === " << "\n";
     for (int i = 0; i <= epochs; i++) {
         // Calculate U1 and A1
         math::matrix<double> u1 = nn::forward_pass(x, math::transpose(w0), b0);
@@ -72,9 +77,12 @@ int main() {
         b1 = gradient(b1, delta1);
 
         if (i % (epochs / 10) == 0) {
-            std::cout << "Loss (" << i << "): " << nn::cross_entropy_loss(a2, hot) << "\n";
+            std::cout << "Perdida (época " << i << "): " << nn::cross_entropy_loss(a2, hot) << "\n";
         }
     }
+    std::cout << "\n";
+
+    verify(x, w0, b0, w1, b1, y);
 }
 
 template <typename T>
@@ -116,4 +124,37 @@ std::vector<double> gradient(const std::vector<double>& b, const math::matrix<do
     }
 
     return vec;
+}
+
+
+int get_max_idx(const std::vector<double>& m) {
+    int max = 0;
+    for (int i = 1; i < m.size(); i++) {
+        if (m[i] > m[max]) {
+            max = i;
+        }
+    }
+
+    return max;
+}
+
+
+void verify(
+    const math::matrix<double>& x, const math::matrix<double>& w0, const std::vector<double> b0,
+    const math::matrix<double>& w1, const std::vector<double>& b1, const std::vector<double>& y
+) {
+    math::matrix<double> u0 = nn::forward_pass(x, math::transpose(w0), b0);
+    math::matrix<double> a0 = nn::sigmoid(u0);
+
+    math::matrix<double> u1 = nn::forward_pass(a0, math::transpose(w1), b1);
+    math::matrix<double> a1 = nn::sigmoid(u1);
+
+    math::matrix<double> confusion(4, 4);
+
+    for (int i = 0; i < y.size(); i++) {
+        confusion[y[i]][get_max_idx(a1[i])]++;
+    }
+
+    std::cout << " === MATRIZ DE CONFUSIÓN === " << "\n";
+    print_matrix(confusion);
 }
