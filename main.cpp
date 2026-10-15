@@ -1,11 +1,13 @@
 #include <vector>
 #include <iostream>
 #include <nn/nn.hpp>
-#define CASES 100
-#define BIAS 10
+#define LR 0.1
+#define epochs 1000
 
 template <typename T>
 void print_matrix(const math::matrix<T>& m);
+
+math::matrix<double> minus(const int i, const math::matrix<double>& m);
 
 int main() {
     // Define the inputs
@@ -54,7 +56,16 @@ int main() {
     math::matrix<double> a2 = nn::softmax(u2);
 
     math::matrix<double> hot = nn::one_hot_y(y);
-    print_matrix(a2 - hot);
+    math::matrix<double> delta2 = a2 - hot;
+    math::matrix<double> delta1 = math::matmul(delta2, w1) * (a1 * minus(1, a1));
+
+    //math::matmul(delta2, a2);
+    // Calculate the gradients
+    math::matrix<double> dW2 = math::matmul(math::transpose(delta2), a1);
+    math::matrix<double> dW1 = math::matmul(math::transpose(delta1), x);
+
+    print_matrix(dW1);
+    print_matrix(dW2);
 }
 
 template <typename T>
@@ -65,4 +76,18 @@ void print_matrix(const math::matrix<T>& m) {
         }
         std::cout << "\n";
     }
+
+    std::cout << "(" << m.shape.i << ", " << m.shape.j << ")" << "\n";
+}
+
+math::matrix<double> minus(const int i, const math::matrix<double>& m) {
+    math::matrix<double> r(m.shape.i, m.shape.j);
+
+    for (int i = 0; i < m.shape.i; i++) {
+        for (int j = 0; j < m.shape.j; j++) {
+            r[i][j] = i - m[i][j];
+        }
+    }
+
+    return r;
 }
