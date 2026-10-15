@@ -49,5 +49,5 @@ namespace nn {
     /**
      * Given the values, returns a one-hot matrix with its corresponding values
      */
-    math::matrix<bool> one_hot_y(std::vector<double> y);
+    math::matrix<double> one_hot_y(std::vector<double> y);
 };

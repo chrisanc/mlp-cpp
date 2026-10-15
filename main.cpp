@@ -53,7 +53,8 @@ int main() {
     math::matrix<double> u2 = nn::forward_pass(a1, math::transpose(w1), b1);
     math::matrix<double> a2 = nn::softmax(u2);
 
-    print_matrix(nn::one_hot_y(y));
+    math::matrix<double> hot = nn::one_hot_y(y);
+    print_matrix(a2 - hot);
 }
 
 template <typename T>
