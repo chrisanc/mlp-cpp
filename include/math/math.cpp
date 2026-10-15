@@ -38,3 +38,14 @@ math::matrix<double> math::matmul(const math::matrix<double>& m1, const math::ma
 double math::sigmoid(const double x) {
     return 1 / (1 + std::pow(std::exp(1), -x));
 }
+
+
+double math::max(std::vector<double> v) {
+    double max = v[0];
+
+    for (int i = 1; i < v.size(); i++) {
+        max = std::max(max, v[i]);
+    }
+
+    return max;
+}

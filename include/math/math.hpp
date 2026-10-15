@@ -92,4 +92,10 @@ namespace math {
      * Performs a sigmoid calculation on a given value
      */
     double sigmoid(const double x);
+
+    
+    /**
+     * Given an array, returns the max value found
+     */
+    double max(std::vector<double> v);
 };

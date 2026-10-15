@@ -32,4 +32,16 @@ namespace nn {
      * Calculates the error of the activated input
      */
     std::vector<double> error(const std::vector<double>& y, const std::vector<double>& y_hat);
+
+
+    /**
+     * Takes a matrix and returns a vector with the max element row-wise
+     */
+    std::vector<double> max(math::matrix<double> m);
+
+
+    /**
+     * Takes a vector and returns the average loss using the cross-entropy loss formula
+     */
+    double cross_entropy_loss(const math::matrix<double> a);
 };

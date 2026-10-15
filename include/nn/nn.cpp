@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include <nn/nn.hpp>
 
 /*
@@ -82,4 +83,27 @@ std::vector<double> nn::error(const std::vector<double>& y, const std::vector<do
     }
 
     return err;
+}
+
+
+std::vector<double> nn::max(math::matrix<double> m) {
+    std::vector<double> v(m.shape.i);
+
+    for (int i = 0; i < m.shape.i; i++) {
+        v[i] = math::max(m[i]);
+    }
+
+    return v;
+}
+
+
+double nn::cross_entropy_loss(const math::matrix<double> a) {
+    double loss = 0.0;
+
+    std::vector<double> max = nn::max(a);
+    for (const double& value : max) {
+        loss += -std::log(value);
+    }
+
+    return loss / a.shape.i;
 }
