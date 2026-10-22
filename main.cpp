@@ -141,7 +141,7 @@ void verify(
     math::matrix<double> u1 = nn::forward_pass(a0, math::transpose(w1), b1);
     math::matrix<double> a1 = nn::sigmoid(u1);
 
-    math::matrix<double> confusion(4, 4);
+    math::matrix<double> confusion(3, 3);
 
     for (int i = 0; i < y.size(); i++) {
         confusion[y[i]][get_max_idx(a1[i])]++;
