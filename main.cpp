@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <nn/nn.hpp>
+#include <files/file.hpp>
 #define LR 0.1
 #define epochs 1000
 
@@ -15,6 +16,8 @@ void verify(
 );
 
 int main() {
+    files::dataframe df = files::read("data/iris_processed.csv");
+    std::cout << df.data.shape.i << " - " << df.data.shape.j << "\n";
     // Define the inputs
     math::matrix<double> x = math::matrix<double>({
             {0.7, 0.4, 0.7},

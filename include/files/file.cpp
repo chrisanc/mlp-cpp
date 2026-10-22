@@ -27,21 +27,22 @@ files::dataframe files::read(std::string path) {
                 switch (dtype) {
                 case type::DType::String:
                     row.push_back(cell);
+                    break;
                 case type::DType::Double:
                     row.push_back(std::stod(cell));
+                    break;
                 case type::DType::Integer:
                     row.push_back(static_cast<int>(std::stoll(cell)));
+                    break;
                 }
-                df.data.shape.j++;
             }
         }
-
+        if (!first) df.data.values.push_back(row);
         first = false;
-        df.data.values.push_back(row);
-        df.data.shape.i++;
     }
 
-    df.data.shape.j = df.data.shape.j / df.data.shape.i;
+    df.data.shape.i = df.data.values.size();
+    df.data.shape.j = df.columns.size();
 
     return df;
 }
