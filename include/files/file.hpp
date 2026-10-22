@@ -1,6 +1,12 @@
 #pragma once
+#include <variant>
 #include <math/math.hpp>
 
 namespace files {
-    math::matrix<double> read(std::string path);
+    struct dataframe {
+        std::vector<std::string> columns;
+        math::matrix<std::variant<int, double, std::string>> data;
+    };
+
+    files::dataframe read(std::string path);
 }

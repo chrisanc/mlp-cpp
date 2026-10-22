@@ -6,6 +6,7 @@ add_executable(mlp
     include/nn/nn.cpp
     include/math/math.cpp
     include/files/file.cpp
+    include/types/type.cpp
 )
 
 target_include_directories(mlp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)

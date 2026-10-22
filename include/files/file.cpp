@@ -1,30 +1,47 @@
 #include <iostream>
 #include <fstream>
+#include <variant>
 #include <sstream>
 #include <string>
 #include <vector>
 #include <files/file.hpp>
+#include <types/type.hpp>
 
-math::matrix<double> files::read(std::string path) {
+files::dataframe files::read(std::string path) {
     std::ifstream file(path);
     std::string line;
-    math::matrix<double> m;
+    files::dataframe df;
 
+    // Variable to verify if it's the first row (column names)
+    bool first = true;
     while (std::getline(file, line)) {
         std::stringstream ss(line);
         std::string cell;
-        std::vector<double> row;
+        std::vector<std::variant<int, double, std::string>> row;
 
         while (std::getline(ss, cell, ',')) {
-            row.push_back(std::stod(cell));
-            m.shape.j++;
+            if (first) {
+                df.columns.push_back(cell);
+            } else {
+                type::DType dtype = type::detect_type(cell);
+                switch (dtype) {
+                case type::DType::String:
+                    row.push_back(cell);
+                case type::DType::Double:
+                    row.push_back(std::stod(cell));
+                case type::DType::Integer:
+                    row.push_back(static_cast<int>(std::stoll(cell)));
+                }
+                df.data.shape.j++;
+            }
         }
 
-        m.values.push_back(row);
-        m.shape.i++;
+        first = false;
+        df.data.values.push_back(row);
+        df.data.shape.i++;
     }
 
-    m.shape.j = m.shape.j / m.shape.i;
+    df.data.shape.j = df.data.shape.j / df.data.shape.i;
 
-    return m;
+    return df;
 }
