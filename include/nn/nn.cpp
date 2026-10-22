@@ -26,7 +26,7 @@ std::vector<double> nn::init_bias(const size_t n) {
 
 
 math::matrix<double> nn::forward_pass(const math::matrix<double>& x, const math::matrix<double>& w, const std::vector<double>& b) {
-    if (w.shape.j != b.size()) throw new std::invalid_argument("The given shapes aren't valid...");
+    if (w.shape.j != b.size()) throw std::invalid_argument("The given shapes aren't valid...");
     
     math::matrix<double> m = math::matmul(x, w);
 

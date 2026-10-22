@@ -19,41 +19,14 @@ int main() {
     files::dataframe df = files::read("data/iris_processed.csv");
     std::cout << df.data.shape.i << " - " << df.data.shape.j << "\n";
     // Define the inputs
-    math::matrix<double> x = math::matrix<double>({
-            {0.7, 0.4, 0.7},
-            {0.65, 0.45, 0.75},
-            {0.75, 0.35, 0.65},
-            {0.15, 0.45, 0.70},
-            {0.20, 0.40, 0.65},
-            {0.10, 0.50, 0.75},
-            {0.65, 0.90, 0.70},
-            {0.70, 0.85, 0.65},
-            {0.60, 0.95, 0.75},
-            {0.65, 0.45, 0.15},
-            {0.70, 0.40, 0.20},
-            {0.60, 0.50, 0.10}
-        }, 12, 3
-    );
+    math::matrix<double> x = files::to_numeric(df, {"SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm"});
     // Define the real output values
-    std::vector<double> y = {0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3};
+    std::vector<double> y = files::to_class_indexes(df, "Species");
     // Define the weights
-    math::matrix<double> w0 = math::matrix<double>({
-            {.5, 0.1, 0.2},
-            {.1, 0.7, 2},
-            {.2, 0.9, 0.9},
-            {.2, 0.9, 0.9},
-            {.2, 0.9, 0.9}
-        }, 5, 3
-    );
-    math::matrix<double> w1 = math::matrix<double>({
-            {0.12, 0.2, -2, 0.2, 0.1},
-            {.34, .4, 2, 0.5, -1.2},
-            {.67, -0.1, 0.3, 0.1, 0.4},
-            {.7, 0.15, 0.1, 0.8, 1}
-        }, 4, 5
-    );
-    std::vector<double> b0 = {0.3, -0.1, 0.2, -0.4, 0.1};
-    std::vector<double> b1 = {1.2, 0.29, 0.12, 0.1};
+    math::matrix<double> w0 = nn::init_weights({5, 4});
+    math::matrix<double> w1 = nn::init_weights({3, 5});
+    std::vector<double> b0 = nn::init_bias(5);
+    std::vector<double> b1 = nn::init_bias(3);
 
     std::cout << " === PROCESO DE ENTRENAMIENTO === " << "\n";
     for (int i = 0; i <= epochs; i++) {

@@ -13,7 +13,7 @@ namespace files {
         }
 
         std::vector<std::variant<int, double, std::string>> operator[](const std::string& str) {
-            size_t idx = -1;
+            int idx = -1;
             // Find the index of the header
             for (int i = 0; i < columns.size(); i++) {
                 if (columns[i] == str) {
@@ -34,4 +34,19 @@ namespace files {
     };
 
     files::dataframe read(std::string path);
+
+    /**
+     * Converts the given named columns into a numeric matrix (one column per name)
+     */
+    math::matrix<double> to_numeric(const dataframe& df, const std::vector<std::string>& names);
+
+    /**
+     * Converts the given named column into a numeric vector
+     */
+    std::vector<double> to_numeric_column(const dataframe& df, const std::string& name);
+
+    /**
+     * Maps each distinct text value of the given column to an index (0, 1, 2...) in order of appearance
+     */
+    std::vector<double> to_class_indexes(const dataframe& df, const std::string& name);
 }
