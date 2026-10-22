@@ -85,6 +85,10 @@ int main() {
     verify(x, w0, b0, w1, b1, y);
 }
 
+
+/**
+ * Prints the given matrix in the console with a pretty format
+ */
 template <typename T>
 void print_matrix(const math::matrix<T>& m) {
     for (int i = 0; i < m.shape.i; i++) {
@@ -97,6 +101,10 @@ void print_matrix(const math::matrix<T>& m) {
     std::cout << "(" << m.shape.i << ", " << m.shape.j << ")" << "\n";
 }
 
+
+/**
+ * Executes a substraction of the given value with the matrix ones
+ */
 math::matrix<double> minus(const int value, const math::matrix<double>& m) {
     math::matrix<double> r(m.shape.i, m.shape.j);
 
@@ -109,7 +117,9 @@ math::matrix<double> minus(const int value, const math::matrix<double>& m) {
     return r;
 }
 
-
+/**
+ * Calculates the gradient of the given bias
+ */
 std::vector<double> gradient(const std::vector<double>& b, const math::matrix<double>& delta) {
     std::vector<double> vec(delta.shape.j);
 
@@ -127,6 +137,9 @@ std::vector<double> gradient(const std::vector<double>& b, const math::matrix<do
 }
 
 
+/**
+ * Obtains the index of the maximum value available on the given array
+ */
 int get_max_idx(const std::vector<double>& m) {
     int max = 0;
     for (int i = 1; i < m.size(); i++) {
@@ -139,6 +152,9 @@ int get_max_idx(const std::vector<double>& m) {
 }
 
 
+/**
+ * Verifies the neural network classifier
+ */
 void verify(
     const math::matrix<double>& x, const math::matrix<double>& w0, const std::vector<double> b0,
     const math::matrix<double>& w1, const std::vector<double>& b1, const std::vector<double>& y
