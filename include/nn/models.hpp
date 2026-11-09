@@ -40,9 +40,9 @@ namespace models {
 
     class NeuralNetwork {
     private:
-        std::vector<ModuleKind> elements;
         NeuralNetwork() = default;
     public:
+        std::vector<ModuleKind> elements;
         NeuralNetwork(std::initializer_list<ModuleKind> args) {
             if (args.size() < 1) {
                 throw std::invalid_argument(
@@ -59,6 +59,7 @@ namespace models {
     };
 
     class MultiLayerPerceptron : public NeuralNetwork {
+    public:
         void forward();
         void update();
     };
