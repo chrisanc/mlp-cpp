@@ -1,4 +1,5 @@
 #include <math/math.hpp>
+#include <stdexcept>
 
 template <typename T>
 std::vector<T>& math::matrix<T>::operator[](int i) {

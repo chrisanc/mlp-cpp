@@ -12,3 +12,8 @@ math::matrix<double> functions::Softmax::forward(const math::matrix<double>& x) 
 math::matrix<double> functions::Sigmoid::forward(const math::matrix<double>& x) {
     return nn::sigmoid(x);
 }
+
+
+void models::MultiLayerPerceptron::forward() {}
+
+void models::MultiLayerPerceptron::update() {}

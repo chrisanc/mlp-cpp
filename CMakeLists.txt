@@ -4,6 +4,7 @@ project(mpl-cpp)
 add_executable(mlp
     main.cpp
     include/nn/base.cpp
+    include/nn/models.cpp
     include/math/math.cpp
     include/files/file.cpp
     include/types/type.cpp
