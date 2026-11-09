@@ -53,67 +53,17 @@ namespace math {
             shape = {r, c};
         }
 
-        std::vector<T>& operator[](int i) {
-            return values[i];
-        }
+        std::vector<T>& operator[](int i);
 
-        const std::vector<T>& operator[](int i) const {
-            return values[i];
-        }
+        const std::vector<T>& operator[](int i) const;
 
-        const math::matrix<T> operator-(const math::matrix<T>& m) {
-            if (m.shape.i != shape.i || m.shape.j != shape.j) {
-                throw std::invalid_argument("The given shapes aren't valid");
-            }
-            math::matrix<T> r(m.shape.i, m.shape.j);
+        const math::matrix<T> operator-(const math::matrix<T>& m);
 
-            for (int i = 0; i < m.shape.i; i++) {
-                for (int j = 0; j < m.shape.j; j++) {
-                    r[i][j] = values[i][j] - m[i][j];
-                }
-            }
+        const math::matrix<T> operator*(const math::matrix<T>& m);
 
-            return r;
-        }
+        const math::matrix<T> operator*(const double m);
 
-
-        const math::matrix<T> operator*(const math::matrix<T>& m) {
-            if (m.shape.i != shape.i || m.shape.j != shape.j) {
-                throw std::invalid_argument("The given shapes aren't valid");
-            }
-            math::matrix<T> r(m.shape.i, m.shape.j);
-
-            for (int i = 0; i < m.shape.i; i++) {
-                for (int j = 0; j < m.shape.j; j++) {
-                    r[i][j] = values[i][j] * m[i][j];
-                }
-            }
-            return r;
-        }
-
-
-        const math::matrix<T> operator*(const double m) {
-            math::matrix<T> r(shape.i, shape.j);
-
-            for (int i = 0; i < shape.i; i++) {
-                for (int j = 0; j < shape.j; j++) {
-                    r[i][j] = values[i][j] * m;
-                }
-            }
-            return r;
-        }
-
-
-        const math::matrix<T> operator/(const double m) {
-            math::matrix<T> r(shape.i, shape.j);
-
-            for (int i = 0; i < shape.i; i++) {
-                for (int j = 0; j < shape.j; j++) {
-                    r[i][j] = values[i][j] / m;
-                }
-            }
-            return r;
-        }
+        const math::matrix<T> operator/(const double m);
     };
 
     /**
@@ -130,17 +80,7 @@ namespace math {
      * Algorithm used to transpose a matrix
      */
     template <typename T>
-    math::matrix<T> transpose(const math::matrix<T>& m) {
-        math::matrix<T> matrix(m.shape.j, m.shape.i);
-
-        for (int i = 0; i < m.shape.i; i++) {
-            for (int j = 0; j < m.shape.j; j++) {
-                matrix[j][i] = m[i][j];
-            }
-        }
-
-        return matrix;
-    }
+    math::matrix<T> transpose(const math::matrix<T>& m);
 
     /**
      * Performs a sigmoid calculation on a given value
@@ -153,3 +93,5 @@ namespace math {
      */
     double max(std::vector<double> v);
 };
+
+#include <math/math.tpp>
