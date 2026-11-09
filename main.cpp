@@ -1,6 +1,6 @@
 #include <vector>
 #include <iostream>
-#include <nn/nn.hpp>
+#include <nn/base.hpp>
 #include <files/file.hpp>
 #define LR 0.1
 #define epochs 1000

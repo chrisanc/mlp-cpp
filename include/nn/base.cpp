@@ -1,6 +1,7 @@
 #include <iostream>
+#include <algorithm>
 #include <cmath>
-#include <nn/nn.hpp>
+#include <nn/base.hpp>
 
 /*
  Neural networks (nn) namespace
@@ -67,6 +68,19 @@ math::matrix<double> nn::softmax(const math::matrix<double>& x) {
 
         for (int j = 0; j < x.shape.j; j++) {
             r[i][j] = std::exp(x[i][j]) / sum;
+        }
+    }
+
+    return r;
+}
+
+
+math::matrix<double> nn::relu(const math::matrix<double>& x) {
+    math::matrix<double> r(x.shape.i, x.shape.j);
+
+    for (int i = 0; i < x.shape.i; i++) {
+        for (int j = 0; j < x.shape.j; j++) {
+            r[i][j] = std::max(x[i][j], 0.0);
         }
     }
 

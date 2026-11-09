@@ -3,7 +3,7 @@ project(mpl-cpp)
 
 add_executable(mlp
     main.cpp
-    include/nn/nn.cpp
+    include/nn/base.cpp
     include/math/math.cpp
     include/files/file.cpp
     include/types/type.cpp
